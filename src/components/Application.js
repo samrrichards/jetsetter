@@ -32,23 +32,24 @@ class Application extends Component {
   addItem = item => this.setState({items: [item, ...this.state.items]});
 
   removeItem = rmItem => {
-    let newItems = this.state.items.filter(item => item.id !== rmItem.id);
-    this.setState({items: newItems});
+    let items = this.state.items.filter(item => item.id !== rmItem.id);
+    
+    this.setState({ items });
   }
 
   toggleItem = tItem => {
-    let { items } = this.state;
+    let items = [...this.state.items];
 
-    let togglededItem = items.find(item => item.id === tItem.id);
+    let toggledItem = items.find(item => item.id === tItem.id);
 
-    togglededItem.packed = !togglededItem.packed;
+    toggledItem.packed = !toggledItem.packed;
 
     this.setState({ items });
   }
 
 
   unpackAll = () => {
-    let { items } = this.state;
+    let items = [...this.state.items];
 
     items.forEach(item => item.packed = false);
 
