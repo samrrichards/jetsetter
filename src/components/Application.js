@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import uniqueId from 'lodash/uniqueId';
+import { uniqueId }from 'lodash';
 import CountDown from './CountDown';
 import NewItem from './NewItem';
 import Items from './Items';
@@ -29,8 +29,24 @@ class Application extends Component {
     }
   }
 
+  addItem = item => this.setState({items: [item, ...this.state.items]});
+
+  removeItem = rmItem =>
+    this.setState({items: this.state.items.filter(item => item.id !== rmItem.id)});
+
+  checkItem = pItem => {
+    let { items } = this.state;
+
+    let packedItem = items.find(item => item.id === pItem.id);
+
+    packedItem.packed = !packedItem.packed;
+
+    this.setState({ items });
+  }
+
+
   unpackAll = () => {
-    const { items } = this.state;
+    let { items } = this.state;
 
     items.forEach(item => item.packed = false);
 
@@ -49,10 +65,10 @@ class Application extends Component {
 
     return (
       <div className="Application">
-        <NewItem />
+        <NewItem onSubmit={this.addItem} />
         <CountDown />
-        <Items title="Unpacked Items" items={packed} />
-        <Items title="Packed Items" items={unpacked} />
+        <Items title="Unpacked Items" items={packed} onRemove={this.removeItem} onCheck={this.checkItem} />
+        <Items title="Packed Items" items={unpacked} onRemove={this.removeItem} onCheck={this.checkItem} />
         <button onClick={this.unpackAll} className="button full-width">Mark All As Unpacked</button>
       </div>
     );
