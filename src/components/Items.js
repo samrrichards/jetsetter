@@ -3,26 +3,35 @@ import Item from './Item';
 import Filter from './Filter';
 
 class Items extends Component {
-  state = { value: ''};
+  constructor(props){
+    super(props);
 
-  updateSearchTerm = searchTerm => this.setState({value: searchTerm});
+    this.state = {
+      value: ''
+    }
+  }
+
+  updateSearchTerm = value => this.setState({ value });
 
   render() {
-    const { title, items, onRemove, onCheck } = this.props;
+    const { title, items, onRemove, onCheckOff } = this.props;
+
+    const { value } = this.state;
+
     return (
       <section className="Items">
         <h2>
           {title} ({items.length})
         </h2>
-        <Filter searchTerm={this.state.value} onChange={this.updateSearchTerm} />
+        <Filter searchTerm={value} onChange={this.updateSearchTerm} />
         {items
           .filter(item =>
-            item.value.toLowerCase().includes(this.state.value.toLowerCase()),
+            item.value.toLowerCase().includes(value.toLowerCase()),
           )
           .map(item => (
             <Item
               key={item.id}
-              onCheckOff={() => onCheck(item)}
+              onCheckOff={() => onCheckOff(item)}
               onRemove={() => onRemove(item)}
               item={item}
             />

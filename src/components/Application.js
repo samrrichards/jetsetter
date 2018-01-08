@@ -36,12 +36,12 @@ class Application extends Component {
     this.setState({items: newItems});
   }
 
-  checkItem = pItem => {
+  toggleItem = tItem => {
     let { items } = this.state;
 
-    let packedItem = items.find(item => item.id === pItem.id);
+    let togglededItem = items.find(item => item.id === tItem.id);
 
-    packedItem.packed = !packedItem.packed;
+    togglededItem.packed = !togglededItem.packed;
 
     this.setState({ items });
   }
@@ -69,8 +69,8 @@ class Application extends Component {
       <div className="Application">
         <NewItem onSubmit={this.addItem} />
         <CountDown />
-        <Items title="Unpacked Items" items={packed} onRemove={this.removeItem} onCheck={this.checkItem} />
-        <Items title="Packed Items" items={unpacked} onRemove={this.removeItem} onCheck={this.checkItem} />
+        <Items title="Unpacked Items" items={packed} onRemove={this.removeItem} onCheckOff={this.toggleItem} />
+        <Items title="Packed Items" items={unpacked} onRemove={this.removeItem} onCheckOff={this.toggleItem} />
         <button onClick={this.unpackAll} className="button full-width">Mark All As Unpacked</button>
       </div>
     );
