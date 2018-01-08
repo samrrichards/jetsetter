@@ -31,8 +31,10 @@ class Application extends Component {
 
   addItem = item => this.setState({items: [item, ...this.state.items]});
 
-  removeItem = rmItem =>
-    this.setState({items: this.state.items.filter(item => item.id !== rmItem.id)});
+  removeItem = rmItem => {
+    let newItems = this.state.items.filter(item => item.id !== rmItem.id);
+    this.setState({items: newItems});
+  }
 
   checkItem = pItem => {
     let { items } = this.state;
@@ -60,8 +62,8 @@ class Application extends Component {
   render() {
     const { items } = this.state;
 
-    const packed = items.filter(item => !!item.packed)
-    const unpacked = items.filter(item => !item.packed)
+    const packed = items.filter(item => !!item.packed);
+    const unpacked = items.filter(item => !item.packed);
 
     return (
       <div className="Application">

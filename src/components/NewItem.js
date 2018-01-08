@@ -18,8 +18,8 @@ class NewItem extends Component {
 
     onSubmit({
       value,
-      packed: false,
-      id: uniqueId()
+      id: uniqueId("item_"),
+      packed: false
     });
 
     this.setState({value:''});
