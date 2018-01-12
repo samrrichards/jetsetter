@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import Item from './Item';
 import Filter from './Filter';
 
+import { removeItem, toggleItem } from "../actions";
+
 class Items extends Component {
   constructor(props){
     super(props);
@@ -14,7 +16,7 @@ class Items extends Component {
   updateSearchTerm = value => this.setState({ value });
 
   render() {
-    const { title, items, onRemove, onCheckOff } = this.props;
+    const { title, items } = this.props;
 
     const { value } = this.state;
 
@@ -31,8 +33,8 @@ class Items extends Component {
           .map(item => (
             <Item
               key={item.id}
-              onCheckOff={() => onCheckOff(item)}
-              onRemove={() => onRemove(item)}
+              onCheckOff={() => toggleItem(item)}
+              onRemove={() => removeItem(item)}
               item={item}
             />
           ))}

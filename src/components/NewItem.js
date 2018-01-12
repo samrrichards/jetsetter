@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import uniqueId from 'lodash/uniqueId';
+
+import { addItem } from "../actions";
 
 import './NewItem.css';
 
@@ -11,22 +12,13 @@ class NewItem extends Component {
   };
 
   handleSubmit = event => {
-    const { onSubmit } = this.props;
     const { value } = this.state;
 
     event.preventDefault();
 
-    onSubmit({
-      value,
-      id: uniqueId("item_"),
-      packed: false
-    });
+    addItem(value);
 
     this.setState({value:''});
-
-    // Do something when a new value is submitted.
-
-    // Reset the state of the component.
   };
 
   render() {
